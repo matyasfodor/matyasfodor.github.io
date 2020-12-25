@@ -5,6 +5,8 @@ import {
   faLinkedin,
   faStrava,
 } from "@fortawesome/free-brands-svg-icons";
+import MetaTags from "react-meta-tags";
+
 import "./App.scss";
 
 const SocialLinks = () => {
@@ -17,9 +19,11 @@ const SocialLinks = () => {
   return (
     <div className="SocialLinks">
       {links.map(({ link, icon }) => (
-        <a href={link} rel="noreferrer noopener" key={link}>
-          <FontAwesomeIcon icon={icon} />
-        </a>
+        <div key={link}>
+          <a href={link} rel="noreferrer noopener">
+            <FontAwesomeIcon icon={icon} />
+          </a>
+        </div>
       ))}
     </div>
   );
@@ -28,11 +32,26 @@ const SocialLinks = () => {
 function App() {
   return (
     <div>
+      <MetaTags>
+        <title>Matyas Fodor | Personal website</title>
+        <meta
+          name="description"
+          content="Personal website of Matyas Fodor, a fullstack software engineer proficient in Python, TypeScript and JavaScript."
+        />
+        <meta property="og:title" content="Matyas Fodor" />
+        {/* TODO add image */}
+        {/* <meta property="og:image" content="path/to/image.jpg" /> */}
+        <meta name="robots" content="index, follow" />
+        <meta
+          name="keywords"
+          content="software engineer,software developer,algorithms,python,typescript,javascript,react,rust,nextjs,prisma,graphql"
+        />
+      </MetaTags>
       <header>
-        <p>Mátyás Fodor</p>
+        <h4>Matyas Fodor</h4>
         <p>
-          Fullstack engineer, AI graduate. Currently working as a software
-          engineer and tech lead{" "}
+          I am an AI graduate currently working as a fullstack software engineer
+          and tech lead{" "}
           <a rel="noreferrer noopener" href="https://www.benevolent.com/">
             @BenevolentAI
           </a>
@@ -46,7 +65,7 @@ function App() {
           I prefer endurance sports and functional training, I finished an iron
           man in 2018.
         </p>
-        <p>I am fiddling with neural nets🕸 and Rust 🦀 in my freetime</p>
+        <p>In my free time I am fiddling with neural nets🕸 and Rust 🦀.</p>
       </header>
       <footer>
         <SocialLinks />

@@ -1,0 +1,13 @@
+.SocialLinks {
+  & > div {
+    display: inline-block;
+    font-size: 2rem;
+    & > a {
+      text-decoration: none;
+      color: inherit;
+    }
+    &:not(:last-child)::after {
+      content: "\00a0⸱\00a0";
+    }
+  }
+}
