@@ -9,8 +9,7 @@
 /coverage
 
 # production
-# required for github pages hosting
-# /build
+/build
 
 # misc
 .DS_Store
