@@ -31,9 +31,9 @@ const SocialLinks = () => {
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <MetaTags>
-        <title>Matyas Fodor | Personal website</title>
+        <title>Matyas Fodor Software Engineer</title>
         <meta
           name="description"
           content="Personal website of Matyas Fodor, a fullstack software engineer proficient in Python, TypeScript and JavaScript."
@@ -48,12 +48,12 @@ function App() {
         />
       </MetaTags>
       <header>
-        <h4>Matyas Fodor</h4>
+        <h1>Matyas Fodor</h1>
         <p>
           I am an AI graduate currently working as a fullstack software engineer
-          and tech lead{" "}
+          and tech lead at{" "}
           <a rel="noreferrer noopener" href="https://www.benevolent.com/">
-            @BenevolentAI
+            BenevolentAI
           </a>
           .
         </p>
@@ -62,8 +62,8 @@ function App() {
           overpriced ☕️ and 🥐.
         </p>
         <p>
-          I prefer endurance sports and functional training, I finished an iron
-          man in 2018.
+          I am an endurance sports and functional training enthusiast, I
+          finished an iron man in 2018.
         </p>
         <p>In my free time I am fiddling with neural nets🕸 and Rust 🦀.</p>
       </header>
