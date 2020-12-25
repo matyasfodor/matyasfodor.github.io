@@ -4,8 +4,11 @@ import {
   faGithub,
   faLinkedin,
   faStrava,
+  faStackOverflow,
 } from "@fortawesome/free-brands-svg-icons";
 import MetaTags from "react-meta-tags";
+import useDarkMode from "use-dark-mode";
+import Toggle from "./Toggle";
 
 import "./App.scss";
 
@@ -13,6 +16,10 @@ const SocialLinks = () => {
   const links = [
     { link: "https://github.com/matyasfodor", icon: faGithub },
     { link: "https://twitter.com/MTY_FDR", icon: faTwitter },
+    {
+      link: "https://stackoverflow.com/users/2419215/fodma1",
+      icon: faStackOverflow,
+    },
     { link: "https://www.strava.com/athletes/4153821", icon: faStrava },
     { link: "https://www.linkedin.com/in/matyasfodor/", icon: faLinkedin },
   ];
@@ -30,6 +37,7 @@ const SocialLinks = () => {
 };
 
 function App() {
+  const darkMode = useDarkMode();
   return (
     <div className="App">
       <MetaTags>
@@ -48,7 +56,12 @@ function App() {
         />
       </MetaTags>
       <header>
+        <div className="toggleContainer">
+          <Toggle value={darkMode.value} onChange={darkMode.toggle} />
+        </div>
         <h1>Matyas Fodor</h1>
+      </header>
+      <section className="mainSection">
         <p>
           I am an AI graduate currently working as a fullstack software engineer
           and tech lead at{" "}
@@ -63,10 +76,10 @@ function App() {
         </p>
         <p>
           I am an endurance sports and functional training enthusiast, I
-          finished an iron man in 2018.
+          finished an iron man in 2018. 🏊‍♂️ 🚴‍♂️ 🏃‍♂️
         </p>
-        <p>In my free time I am fiddling with neural nets🕸 and Rust 🦀.</p>
-      </header>
+        <p>In my free time I am fiddling with neural nets 🕸 and Rust 🦀.</p>
+      </section>
       <footer>
         <SocialLinks />
       </footer>

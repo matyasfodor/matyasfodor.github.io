@@ -1,0 +1,47 @@
+/* source-code-pro-regular - latin */
+@font-face {
+  font-family: "Source Code Pro";
+  font-style: normal;
+  font-weight: 400;
+  src: url("./fonts/source-code-pro-v13-latin-regular.eot"); /* IE9 Compat Modes */
+  src: local(""),
+    url("./fonts/source-code-pro-v13-latin-regular.eot?#iefix")
+      format("embedded-opentype"),
+    /* IE6-IE8 */ url("./fonts/source-code-pro-v13-latin-regular.woff2")
+      format("woff2"),
+    /* Super Modern Browsers */
+      url("./fonts/source-code-pro-v13-latin-regular.woff") format("woff"),
+    /* Modern Browsers */ url("./fonts/source-code-pro-v13-latin-regular.ttf")
+      format("truetype"),
+    /* Safari, Android, iOS */
+      url("./fonts/source-code-pro-v13-latin-regular.svg#SourceCodePro")
+      format("svg"); /* Legacy iOS */
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+
+  &.dark-mode {
+    background-color: black;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    p {
+      color: #f0f;
+      text-shadow: 0 0 5px #f0f;
+    }
+    a {
+      text-shadow: none;
+      color: #0ff;
+    }
+  }
+}
