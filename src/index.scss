@@ -28,6 +28,18 @@ body,
 body {
   min-height: 100%;
 
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    color: #084957;
+  }
+
+  a {
+    color: #2c699a;
+  }
+
   &.dark-mode {
     background-color: black;
 
@@ -40,7 +52,6 @@ body {
       text-shadow: 0 0 5px #f0f;
     }
     a {
-      text-shadow: none;
       color: #0ff;
     }
   }

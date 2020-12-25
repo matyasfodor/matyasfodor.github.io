@@ -78,7 +78,7 @@ function App() {
           I am an endurance sports and functional training enthusiast, I
           finished an iron man in 2018. 🏊‍♂️ 🚴‍♂️ 🏃‍♂️
         </p>
-        <p>In my free time I am fiddling with neural nets 🕸 and Rust 🦀.</p>
+        <p>In my free time I am tinkering with neural nets 🕸 and Rust 🦀.</p>
       </section>
       <footer>
         <SocialLinks />
