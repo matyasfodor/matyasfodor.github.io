@@ -16,10 +16,12 @@
     "react-ga": "^3.3.0",
     "react-meta-tags": "^1.0.1",
     "react-scripts": "4.0.1",
+    "source-map-explorer": "^2.5.1",
     "use-dark-mode": "^2.3.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "predeploy": "npm run build && cp CNAME build/",
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
