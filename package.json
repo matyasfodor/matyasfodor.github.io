@@ -10,25 +10,20 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "gh-pages": "^3.1.0",
+    "next": "^10.0.9",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-ga": "^3.3.0",
-    "react-meta-tags": "^1.0.1",
-    "react-scripts": "4.0.1",
     "source-map-explorer": "^2.5.1",
     "use-dark-mode": "^2.3.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "predeploy": "npm run build && cp CNAME build/",
-    "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "xpostbuild": "react-snap",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "xtest (not sure how to re-enable tests with next.js)": "react-scripts test"
   },
   "eslintConfig": {
     "extends": [
@@ -49,10 +44,10 @@
     ]
   },
   "devDependencies": {
+    "@types/babel__core": "^7.1.14",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "node-sass": "^4.14.1",
-    "react-snap": "^1.23.0",
     "typescript": "^4.1.3"
   }
 }

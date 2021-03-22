@@ -11,6 +11,8 @@
     max-width: 40rem;
     margin-left: auto;
     margin-right: auto;
+
+    flex-grow: 1;
   }
 
   .toggleContainer {
@@ -19,16 +21,12 @@
     right: 1rem;
   }
 
-  header {
+  .header {
     display: flex;
     justify-content: center;
   }
 
-  section {
-    flex-grow: 1;
-  }
-
-  footer {
+  .footer {
     padding-bottom: 0.5rem;
     display: flex;
     justify-content: center;

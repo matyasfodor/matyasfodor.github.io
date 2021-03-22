@@ -1,23 +1,23 @@
 import useDarkMode from "use-dark-mode";
 
-import Toggle from "./Toggle";
-import MetaTags from "./MetaTags";
-import SocialLinks from "./SocialLinks";
+import Toggle from "../components/Toggle";
+import MetaTags from "../components/MetaTags";
+import SocialLinks from "../components/SocialLinks";
 
-import "./App.scss";
+import styles from "./index.module.scss";
 
 function App() {
   const darkMode = useDarkMode();
   return (
-    <div className="App">
+    <div className={styles.App}>
       <MetaTags />
-      <header>
-        <div className="toggleContainer">
+      <header className={styles.header}>
+        <div className={styles.toggleContainer}>
           <Toggle value={darkMode.value} onChange={darkMode.toggle} />
         </div>
         <h1>Matyas Fodor</h1>
       </header>
-      <section className="mainSection">
+      <section className={styles.mainSection}>
         <p>
           I am an AI graduate currently working as a fullstack developer and
           tech lead at{" "}
@@ -35,7 +35,7 @@ function App() {
           finished an iron man. 🏊‍♂️ 🚴‍♂️ 🏃‍♂️
         </p>
       </section>
-      <footer>
+      <footer className={styles.footer}>
         <SocialLinks />
       </footer>
     </div>

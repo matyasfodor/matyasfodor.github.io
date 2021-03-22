@@ -7,7 +7,7 @@ import {
   faStackOverflow,
 } from "@fortawesome/free-brands-svg-icons";
 
-import "./SocialLinks.scss";
+import styles from "./SocialLinks.module.scss";
 
 const SocialLinks = () => {
   const links = [
@@ -21,7 +21,7 @@ const SocialLinks = () => {
     { link: "https://www.linkedin.com/in/matyasfodor/", icon: faLinkedin },
   ];
   return (
-    <div className="SocialLinks">
+    <div className={styles.SocialLinks}>
       {links.map(({ link, icon }) => (
         <div key={link}>
           <a href={link} rel="noreferrer noopener" target="_blank">
