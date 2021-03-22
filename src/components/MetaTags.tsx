@@ -1,5 +1,45 @@
 import Head from "next/head";
 
+const darkmodeScript = `
+(function() {
+  // Change these if you use something different in your hook.
+  var storageKey = 'darkMode';
+  var classNameDark = 'dark-mode';
+  var classNameLight = 'light-mode';
+
+  function setClassOnDocumentBody(darkMode) {
+    document.body.classList.add(darkMode ? classNameDark : classNameLight);
+    document.body.classList.remove(darkMode ? classNameLight : classNameDark);
+  }
+  
+  var preferDarkQuery = '(prefers-color-scheme: dark)';
+  var mql = window.matchMedia(preferDarkQuery);
+  var supportsColorSchemeQuery = mql.media === preferDarkQuery;
+  var localStorageTheme = null;
+  try {
+    localStorageTheme = localStorage.getItem(storageKey);
+  } catch (err) {}
+  var localStorageExists = localStorageTheme !== null;
+  if (localStorageExists) {
+    localStorageTheme = JSON.parse(localStorageTheme);
+  }
+
+  // Determine the source of truth
+  if (localStorageExists) {
+    // source of truth from localStorage
+    setClassOnDocumentBody(localStorageTheme);
+  } else if (supportsColorSchemeQuery) {
+    // source of truth from system
+    setClassOnDocumentBody(mql.matches);
+    localStorage.setItem(storageKey, mql.matches);
+  } else {
+    // source of truth from document.body
+    var isDarkMode = document.body.classList.contains(classNameDark);
+    localStorage.setItem(storageKey, JSON.stringify(isDarkMode));
+  }
+})();
+`;
+
 const MyMetaTags = () => (
   <Head>
     <title>Matyas Fodor Software Engineer</title>
@@ -32,6 +72,8 @@ const MyMetaTags = () => (
       name="keywords"
       content="software engineer,software developer,algorithms,python,typescript,javascript,react,vue,docker,rust,nextjs,prisma,graphql,Google Cloud Platform,GCP,AWS,UK,United Kingdom,Europe,Hungary,Budapest,software company"
     />
+
+    <script dangerouslySetInnerHTML={{ __html: darkmodeScript }} />
   </Head>
 );
 
