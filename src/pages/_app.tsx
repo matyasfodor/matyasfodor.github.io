@@ -1,5 +1,6 @@
-import type { Component as ReactComponent } from "react";
+import { Component as ReactComponent } from "react";
 import { useGA } from "../hooks/useGA";
+import { useIsMounted } from "../hooks/useIsMounted";
 import "./index.scss";
 
 export default function MyApp({
@@ -10,5 +11,14 @@ export default function MyApp({
   pageProps: any;
 }) {
   useGA("UA-186090362-1");
-  return <Component {...pageProps} />;
+
+  const { isMounted } = useIsMounted();
+
+  const body = <Component {...pageProps} />;
+
+  if (!isMounted) {
+    return <div style={{ visibility: "hidden" }}>{body}</div>;
+  }
+
+  return body;
 }

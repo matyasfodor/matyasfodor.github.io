@@ -1,0 +1,32 @@
+.container {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: center;
+  & > div:first-child,
+  & > div:last-child {
+    flex: 1;
+  }
+}
+
+.main {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  flex-grow: 1;
+}
+
+.footer {
+  padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+}

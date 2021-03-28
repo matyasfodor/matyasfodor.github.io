@@ -1,11 +1,25 @@
 .Toggle {
   display: flex;
+  margin: 1rem 1rem 1rem auto;
   width: 9rem;
   align-items: center;
   justify-content: space-between;
 
   & > .label {
     font-size: 2rem;
+    &.active {
+      animation-name: rotation;
+      animation-duration: 1.5s;
+    }
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
   }
 }
 
