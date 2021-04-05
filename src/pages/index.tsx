@@ -1,9 +1,12 @@
 import MetaTags from "../components/MetaTags";
 import Layout from "../components/Layout";
+import { GetStaticProps } from "next";
+import { getAllPosts } from "../lib/api";
+import { PostProps } from "../commonTypes";
 
-function App() {
+function App({ posts }: PostProps) {
   return (
-    <Layout>
+    <Layout posts={posts}>
       <MetaTags />
       <section>
         <p>
@@ -23,11 +26,19 @@ function App() {
         </p>
         <p>
           I am an endurance sports and functional training enthusiast, in 2018 I
-          finished an iron man. <span className="noGlow">🏊‍♂️ 🚴‍♂️ 🏃‍♂️</span>
+          finished an Ironman. <span className="noGlow">🏊‍♂️ 🚴‍♂️ 🏃‍♂️</span>
         </p>
       </section>
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  return Promise.resolve({
+    props: {
+      posts: getAllPosts(["slug", "title"]),
+    },
+  });
+};
 
 export default App;

@@ -11,32 +11,43 @@ body,
 body {
   min-height: 100%;
 
+  .text,
   h1,
   h2,
   h3,
   h4,
+  li,
   p {
     color: #084957;
   }
 
-  a {
+  a:not(.no-link) {
     color: #2c699a;
+  }
+
+  hr {
+    border-color: #084957;
   }
 
   &.dark-mode {
     background-color: black;
 
+    .text,
     h1,
     h2,
     h3,
     h4,
+    li,
     p {
       color: #f0f;
       text-shadow: 0 0 7px #f0f;
     }
-    a {
+    a:not(.no-link) {
       color: #0ff;
       text-shadow: none;
+    }
+    hr {
+      border-color: #f0f;
     }
   }
 }
@@ -47,4 +58,15 @@ body {
 
 .noGlow {
   text-shadow: none;
+}
+
+.no-link {
+  text-decoration: none;
+}
+
+.no-list {
+  li {
+    list-style: none;
+  }
+  padding: initial;
 }
