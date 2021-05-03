@@ -8,6 +8,7 @@ author:
   # picture: "/assets/blog/authors/jj.jpeg"
 # ogImage:
 # url: "/assets/blog/dynamic-routing/cover.jpg"
+hidden: false
 ---
 
 # URL encoder/decoder

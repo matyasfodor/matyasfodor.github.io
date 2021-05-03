@@ -31,6 +31,10 @@ const Project: FC<Props> = ({ posts, post, blogPosts }: Props) => {
         <Head>
           <title>{post.title}</title>
           {/* <meta property="og:image" content={post.ogImage.url} /> */}
+          <link
+            rel="stylesheet"
+            href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.2/build/styles/xt256.min.css"
+          ></link>
         </Head>
       </article>
 
@@ -45,7 +49,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   if (!params) {
     return { props: { posts: [], blogPosts: [] } };
   }
-  const post = getPostBySlug(PROJECTS_FOLDER, params?.slug, [
+  const post = getPostBySlug(BLOG_FOLDER, params?.slug, [
     "title",
     "date",
     "slug",
@@ -69,7 +73,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 };
 
 export const getStaticPaths: GetStaticPaths = () => {
-  const slugs = getPostSlugs(PROJECTS_FOLDER);
+  const slugs = getPostSlugs(BLOG_FOLDER);
   return Promise.resolve({
     paths: slugs.map((slug) => ({
       params: {

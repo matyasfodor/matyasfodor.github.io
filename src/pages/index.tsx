@@ -1,12 +1,11 @@
 import MetaTags from "../components/MetaTags";
-import Layout from "../components/Layout";
+import Layout, { LayoutProps } from "../components/Layout";
 import { GetStaticProps } from "next";
-import { getAllPosts } from "../lib/api";
-import { PostProps } from "../commonTypes";
+import { BLOG_FOLDER, getAllPosts, PROJECTS_FOLDER } from "../lib/api";
 
-function App({ posts }: PostProps) {
+function App({ posts, blogPosts }: LayoutProps) {
   return (
-    <Layout posts={posts}>
+    <Layout posts={posts} blogPosts={blogPosts}>
       <MetaTags />
       <section>
         <p>
@@ -36,7 +35,8 @@ function App({ posts }: PostProps) {
 export const getStaticProps: GetStaticProps = async () => {
   return Promise.resolve({
     props: {
-      posts: getAllPosts(["slug", "title"]),
+      posts: getAllPosts(PROJECTS_FOLDER, ["slug", "title"], false),
+      blogPosts: getAllPosts(BLOG_FOLDER, ["slug", "title"], false),
     },
   });
 };

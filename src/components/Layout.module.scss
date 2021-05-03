@@ -33,7 +33,8 @@
 
 .leftAside {
   order: 0;
-  flex-grow: 1;
+  flex: 1;
+
   @media (max-width: 800px) {
     order: 1;
     width: 100%;
@@ -41,7 +42,7 @@
 }
 
 .rightAside {
-  flex-grow: 1;
+  flex: 1;
 
   order: 2;
   @media (max-width: 800px) {
@@ -53,7 +54,7 @@
   padding-left: 1rem;
   padding-right: 1rem;
   max-width: 40rem;
-  flex: 8 8 800px;
+  flex: 1;
 
   order: 1;
   @media (max-width: 800px) {

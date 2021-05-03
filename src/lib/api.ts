@@ -2,10 +2,14 @@ import fs from "fs";
 import { join } from "path";
 import matter from "gray-matter";
 
+export const BLOG_FOLDER = "_blog";
+export const PROJECTS_FOLDER = "_projects";
+
 export type Post = {
   slug: string;
   title: string;
   content: string;
+  hidden: boolean;
 
   // metadata
   excerpt: string;
@@ -15,20 +19,21 @@ export type Post = {
   };
 };
 
-const postsDirectory = join(process.cwd(), "src", "_projects");
+const postsDirectory = join(process.cwd(), "src");
 
-export function getPostSlugs() {
+export function getPostSlugs(folder: string) {
   return fs
-    .readdirSync(postsDirectory)
+    .readdirSync(join(postsDirectory, folder))
     .map((filename) => filename.replace(/\.md$/, ""));
 }
 
 export function getPostBySlug(
+  folder: string,
   slug: string,
   fields: (keyof Post)[] = []
 ): Partial<Post> {
   const realSlug = slug.replace(/\.md$/, "");
-  const fullPath = join(postsDirectory, `${realSlug}.md`);
+  const fullPath = join(postsDirectory, folder, `${realSlug}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
@@ -51,10 +56,18 @@ export function getPostBySlug(
   return items;
 }
 
-export function getAllPosts(fields: (keyof Post)[] = []): Post[] {
-  const slugs = getPostSlugs();
+export function getAllPosts(
+  folder: string,
+  fields: (keyof Post)[] = [],
+  includeHidden = true
+): Post[] {
+  const slugs = getPostSlugs(folder);
   const posts = slugs
-    .map((slug) => getPostBySlug(slug, fields) as Post)
+    .map((slug) => getPostBySlug(folder, slug, [...fields, "hidden"]) as Post)
+    .filter(({ hidden }) => {
+      console.log("!includeHidden || !hidden", !includeHidden, !hidden);
+      return includeHidden || !hidden;
+    })
     // sort posts by date in descending order
     .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
   return posts;
