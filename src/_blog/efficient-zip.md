@@ -15,7 +15,7 @@ hidden: true
 
 <!-- I find the `zip` in Python quite useful. -->
 
-The Python `zip` function is a really clever analogy of a real zipper: It allows you to iterate over several arrays element-wise without having to worry about indexes. It can be quite useful when you have to manually pair elements coming from two data sources:
+The Python `zip` function is a truly clever analogy of a real zipper: It allows you to iterate over several arrays element-wise without having to worry about indexes. It is quite handy when you have to manually pair elements coming from two (or more) data sources:
 
 ```python
 >>> scoreList = [5, 3, 6, 8]
@@ -31,7 +31,7 @@ Please note the `list()` call is needed to convert the result to a list, otherwi
 # <zip object at 0x109b19d00>
 ```
 
-which is an object implementing the iterator interface. Why the hassle with this object? Why can't they just return the list? The iterator interface allows lazy-evaluation, meaning it won't create a list, only if it's asked to, but instead it generates elements on-demand which can be more efficient in many cases. Let's say I want to find the first player with score 6:
+which is an object implementing the iterator interface. Why the hassle with this object? Why is is it not just a list? The iterator interface allows lazy-evaluation, meaning it won't create a list, only if it's asked to. This object instead allows generating elements on-demand which can be more efficient in many cases. Let's say I want to find the first player with score 6:
 
 ```python
 for score, player in zip(scoreList, playerList):
@@ -67,7 +67,7 @@ is
 ]
 ```
 
-It can be handy when you're dealing with tabular data which is stored row-wise, but needs to be displayed column-wise.
+A good use case for this is when some tabular data which is stored row-wise, has to be displayed column-wise.
 
 Everything is simple as long as the input arrays have the same length, but what happens if they don't? According the [official documentation](https://docs.python.org/3.3/library/functions.html#zip) it _stops when the shortest input iterable is exhausted_, meaning it'll return as many elements as long the shortest array is:
 
@@ -78,7 +78,7 @@ Everything is simple as long as the input arrays have the same length, but what 
 
 If all elements need to be preserved, [itertools.zip_longest](https://docs.python.org/3/library/itertools.html#itertools.zip_longest) should be used.
 
-And just to spice things up the little, let me mention that as the zip function expects iterables as input, not specifically arrays. Iterables are more generic than arrays, without going into too much details, they are objects that can be iterated over one element at the time and they can signal if they are exhausted (iteration finished). In practice it means any object that can be itrated over can be used as inputs of zip: tuples, sets, dictionaries, range, or even results of other zips. Mind blowing, right? It is also possible to create an infinite zip. Let me use [itertools.count](https://docs.python.org/3/library/itertools.html#itertools.count) to demostrate it. It is very similar to `range()` except it has no stopping criteria, so in used in a for loop it keeps yielding values unless is stopped.
+And just to spice things up the little, let me mention that as the `zip` function expects iterables as input, not specifically arrays. Iterables are more generic than arrays, without going into too much into details, they are objects that can be iterated over one element at the time and they can signal if they are exhausted (iteration finished). In practice, it means any object that can be itrated over can be used as inputs of zip: tuples, sets, dictionaries, range, or even results of other zips. Mind-blowing, right? 🤯 It is also possible to create an infinite zip. Let me use [itertools.count](https://docs.python.org/3/library/itertools.html#itertools.count) to demostrate it. It is very similar to `range()` except it has no stopping criteria, so if it is used in a for loop it keeps yielding values unless is stopped.
 
 ```python
 >>> for a, b in zip(itertools.count(start=0, step=2), itertools.count(start=1, step=2)):
@@ -89,7 +89,7 @@ And just to spice things up the little, let me mention that as the zip function 
 ...
 ```
 
-I really hope I could convince you by now how cool and versatile this Python standard library function is. Why can't we have nice things in JavaScript? Well we can it's just you probably end up hunting for third-parties on npm or ready-made solutions on Stack Overflow. But is there anything more satisfiying than using your home-grown utilities?
+I really hope I could convince you by now, how cool and versatile this Python standard library function is. Why can't we have nice things in JavaScript? Well we can, you just probably end up hunting for third-parties on npm or ready-made solutions on Stack Overflow. But is there anything more satisfiying than using your home-grown utilities?
 
 <!-- There are some implementations available on Stack Overflow
  - These answers offer list-based (not lazy) solutions: https://stackoverflow.com/questions/22015684/how-do-i-zip-two-arrays-in-javascript
@@ -98,7 +98,7 @@ I really hope I could convince you by now how cool and versatile this Python sta
 None of these
  -->
 
-By the way, the `zip` function is available in the most famous utility library, Lodash, as `_.zip`. There are two problems with the Lodash implementation:
+By the way, the `zip` function is available in the most popular utility library, Lodash, as `_.zip`. There are two problems with the Lodash implementation:
 
 - It implicitly implements the `itertools.zip_longest` functionality without documenting it, or offering a padding value.
 - Not necessarily a problem, but it only operates on arrays and returns an array without any lazy evaluation. This probably serves an average JavaScript user better, but not if you're hungry for scalability and performance.
@@ -122,7 +122,7 @@ Traceback (most recent call last):
 StopIteration
 ```
 
-The iterator of an iterable object van be obtained with the global `iter()` function, and the also globally available `next()` function can be used to fetch the current value and increment the iterator. The end of the iteration is signaled by the `StopIteration` built-in exception. The Python iterator mechanism is built with the side-effect of raising an error, which happens behind the curtains in every for-loop. This allows a very ergonomic workflow, although it might seem unorthodox to make use of exceptions in the expected behaviour of the code flow.
+The iterator of an iterable object can be obtained with the global `iter()` function, and the also globally available `next()` function can be used to fetch the current value and increment the iterator. The end of the iteration is signaled by the `StopIteration` built-in exception. The Python iterator mechanism is built with the side-effect of raising an error, which happens under the hod in every for-loop. This allows a very ergonomic workflow, although it might seem unorthodox to make use of exceptions in the expected behaviour of the code flow.
 
 How would this look like in JavaScript?
 
@@ -141,7 +141,7 @@ undefined
 { value: undefined, done: true }
 ```
 
-In JavaScript, as opposed to Python there's no global function to get an iterator to an object, it can be obtained by the `myList[Symbol.iterator]()` Why the weird syntax? That is probably worthy to another post, let's just accept it for now. The current value can be accessed and the iterator incremented with the `iterator.next()` method, which returns an object with two properties: `value` hold the current value and a `done` indicates the status of the iteration. When the iteration finishes, `value` is `undefined` and `done` is `true`. This interface can be somewhat more invconvenient to work with but this is a trade-off of not signaling the iteration state through an exception.
+In JavaScript, as opposed to Python, there's no global function to get an iterator of an object. It can be obtained by the `myList[Symbol.iterator]()` Why the weird syntax? That would deserve another post, let's just accept it for now. The current value can be accessed and the iterator incremented with the `iterator.next()` method, which returns an object with two properties: `value` holds the current value and a `done` indicates the status of the iteration. When the iteration finishes, `value` is `undefined` and `done` is `true`. This interface can be somewhat more invconvenient to work with but this is a trade-off of not signaling the iteration state using an exception.
 
 With the iterator interface in our toolchain we can design a faithful implementation of the Python `zip` and `itertools.zip_longest` functions in JavaScript supporting iterables. Let's focus on supporting two elements first and stop as soon as one of the iterators is exhausted:
 
