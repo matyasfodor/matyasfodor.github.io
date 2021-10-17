@@ -29,6 +29,10 @@ body {
     border-color: #084957;
   }
 
+  code:not(.hljs) {
+    color: #a30008;
+  }
+
   &.dark-mode {
     background-color: black;
 
@@ -48,6 +52,10 @@ body {
     }
     hr {
       border-color: #f0f;
+    }
+
+    code:not(.hljs) {
+      color: orange;
     }
   }
 }
