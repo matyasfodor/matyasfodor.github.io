@@ -2,8 +2,17 @@ import MetaTags from "../components/MetaTags";
 import Layout, { LayoutProps } from "../components/Layout";
 import { GetStaticProps } from "next";
 import { BLOG_FOLDER, getAllPosts, PROJECTS_FOLDER } from "../lib/api";
+import { useRouter } from "next/router";
+import { FEATURES } from "../lib/consts";
 
 function App({ posts, blogPosts }: LayoutProps) {
+  const router = useRouter();
+  const { feat } = router.query;
+
+  if (feat === FEATURES.WEBSUMMIT) {
+    router.replace("/websummit");
+  }
+
   return (
     <Layout posts={posts} blogPosts={blogPosts}>
       <MetaTags />
