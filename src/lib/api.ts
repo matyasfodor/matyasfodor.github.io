@@ -69,7 +69,6 @@ export function getAllPosts({
   const posts = slugs
     .map((slug) => getPostBySlug(folder, slug, [...fields, "hidden"]) as Post)
     .filter(({ hidden }) => {
-      console.log("!includeHidden || !hidden", !includeHidden, !hidden);
       return includeHidden || !hidden;
     })
     // sort posts by date in descending order

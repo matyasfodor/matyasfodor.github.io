@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { FEATURES } from "../lib/consts";
 import { generateRss } from "../lib/rss";
 
-function App({ posts, blogPosts }: LayoutProps) {
+function App({ posts, blogPosts, tools }: LayoutProps) {
   const router = useRouter();
   const { feat } = router.query;
 
@@ -15,7 +15,7 @@ function App({ posts, blogPosts }: LayoutProps) {
   }
 
   return (
-    <Layout posts={posts} blogPosts={blogPosts}>
+    <Layout posts={posts} blogPosts={blogPosts} tools={tools}>
       <MetaTags />
       <section>
         <p>
@@ -55,6 +55,7 @@ export const getStaticProps: GetStaticProps = async () => {
         fields: ["slug", "title"],
         includeHidden: false,
       }),
+      tools: [{ slug: "pace-calculator", title: "Pace Calculator" }],
     },
   });
 };
