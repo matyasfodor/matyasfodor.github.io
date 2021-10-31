@@ -8,14 +8,14 @@ author:
   # picture: "/assets/blog/authors/jj.jpeg"
 # ogImage:
 # url: "/assets/blog/dynamic-routing/cover.jpg"
-hidden: true
+hidden: false
 ---
 
 # Efficient zip function in JavaScript
 
 <!-- I find the `zip` in Python quite useful. -->
 
-The Python `zip` function is a truly clever analogy of a real zipper: It allows you to iterate over several arrays element-wise without having to worry about indexes. It is quite handy when you have to manually pair elements coming from two (or more) data sources:
+The Python `zip` function is a clever analogy of a real zipper: It allows you to iterate over multiple arrays element-wise without having to worry about indices. It is quite handy when you have to manually pair elements coming from two (or more) data sources:
 
 ```python
 >>> scoreList = [5, 3, 6, 8]
@@ -31,7 +31,7 @@ Please note the `list()` call is needed to convert the result to a list, otherwi
 # <zip object at 0x109b19d00>
 ```
 
-which is an object implementing the iterator interface. Why the hassle with this object? Why is is it not just a list? The iterator interface allows lazy-evaluation, meaning it won't create a list, only if it's asked to. This object instead allows generating elements on-demand which can be more efficient in many cases. Let's say I want to find the first player with score 6:
+which is an object implementing the iterator interface. Why the hassle with this object? Why is it not just a list? The iterator interface allows lazy-evaluation, meaning it won't create a list, only if it's asked. This object instead allows generating elements on-demand, which can be more efficient. Let's say I want to find the first player with score 6:
 
 ```python
 for score, player in zip(scoreList, playerList):
@@ -42,7 +42,7 @@ for score, player in zip(scoreList, playerList):
 
 In this case, the iteration stops with (`(6, 'Emma')`) and the last pair (`(8, 'Gavin')`) would never be constructed.
 
-The implementation is quite interesting, becuase `zip` not only works with two lists, it can accept an arbitrary number of arrays as input parameters. This can be be particularly useful when trying to transpose a list of lists (a matrix). For those who are not familiar with the term `transpose` don't feel intimidated by it. It simply means a list of list is simply flipped by its diagonal. The transposition of
+The implementation is quite interesting, because `zip` not only works with two lists, it can more than two arrays as input parameters. This can be particularly useful when trying to transpose a list of lists (a matrix). If you're not familiar with the term `transpose`, it simply means a list of list is simply flipped by its diagonal. The transposition of
 
 ```python
 [
@@ -67,18 +67,16 @@ is
 ]
 ```
 
-A good use case for this is when some tabular data which is stored row-wise, has to be displayed column-wise.
-
-Everything is simple as long as the input arrays have the same length, but what happens if they don't? According the [official documentation](https://docs.python.org/3.3/library/functions.html#zip) it _stops when the shortest input iterable is exhausted_, meaning it'll return as many elements as long the shortest array is:
+What happens if the input arrays do not have the same length? According to the [Python docs](https://docs.python.org/3.3/library/functions.html#zip) it _stops when the shortest input iterable is exhausted_, meaning it will return as many elements as long the shortest array is:
 
 ```python
 >>> list(zip([1, 2, 3], [4, 5]))
 [(1, 4), (2, 5)]
 ```
 
-If all elements need to be preserved, [itertools.zip_longest](https://docs.python.org/3/library/itertools.html#itertools.zip_longest) should be used.
+If all elements need to be returned, [itertools.zip_longest](https://docs.python.org/3/library/itertools.html#itertools.zip_longest) should be used.
 
-And just to spice things up the little, let me mention that as the `zip` function expects iterables as input, not specifically arrays. Iterables are more generic than arrays, without going into too much into details, they are objects that can be iterated over one element at the time and they can signal if they are exhausted (iteration finished). In practice, it means any object that can be itrated over can be used as inputs of zip: tuples, sets, dictionaries, range, or even results of other zips. Mind-blowing, right? 🤯 It is also possible to create an infinite zip. Let me use [itertools.count](https://docs.python.org/3/library/itertools.html#itertools.count) to demostrate it. It is very similar to `range()` except it has no stopping criteria, so if it is used in a for loop it keeps yielding values unless is stopped.
+And just to spice things up the little, let me mention that as the `zip` function expects iterables as input, not specifically arrays. Iterables are more generic than arrays, without going too much into the details, they are objects that can be iterated over one element at the time, and they can signal if they are exhausted (iteration finished). In practice, it means that any object that can be iterated over can be used as inputs of zip: tuples, sets, dictionaries, range, or even results of other zips. Mind-blowing, right? 🤯 It is also possible to create an infinite zip. Let me use [itertools.count](https://docs.python.org/3/library/itertools.html#itertools.count) to demonstrate it. It is very similar to `range()` except it has no stopping criteria, so if it is used in a for loop it keeps yielding values unless it is stopped.
 
 ```python
 >>> for a, b in zip(itertools.count(start=0, step=2), itertools.count(start=1, step=2)):
@@ -89,7 +87,7 @@ And just to spice things up the little, let me mention that as the `zip` functio
 ...
 ```
 
-I really hope I could convince you by now, how cool and versatile this Python standard library function is. Why can't we have nice things in JavaScript? Well we can, you just probably end up hunting for third-parties on npm or ready-made solutions on Stack Overflow. But is there anything more satisfiying than using your home-grown utilities?
+I really hope I could convince you by now, how cool and versatile this Python standard library function is. Why can't we have nice things in JavaScript? Well we can, you just probably end up hunting for third-parties on npm<sup><a href="#jump-1">1</a></sup> or ready-made solutions on Stack Overflow. But is there anything more satisfying than using your home-grown utilities?
 
 <!-- There are some implementations available on Stack Overflow
  - These answers offer list-based (not lazy) solutions: https://stackoverflow.com/questions/22015684/how-do-i-zip-two-arrays-in-javascript
@@ -98,12 +96,7 @@ I really hope I could convince you by now, how cool and versatile this Python st
 None of these
  -->
 
-By the way, the `zip` function is available in the most popular utility library, Lodash, as `_.zip`. There are two problems with the Lodash implementation:
-
-- It implicitly implements the `itertools.zip_longest` functionality without documenting it, or offering a padding value.
-- Not necessarily a problem, but it only operates on arrays and returns an array without any lazy evaluation. This probably serves an average JavaScript user better, but not if you're hungry for scalability and performance.
-
-Before jumping into the final code, let's take a detour and inspect the differences between the Python and JavaScript iterator interface.
+Before jumping into the implementation, let's take a detour and inspect the differences between the Python and the JavaScript iterator interface.
 
 In Python you can do:
 
@@ -141,9 +134,9 @@ undefined
 { value: undefined, done: true }
 ```
 
-In JavaScript, as opposed to Python, there's no global function to get an iterator of an object. It can be obtained by the `myList[Symbol.iterator]()` Why the weird syntax? That would deserve another post, let's just accept it for now. The current value can be accessed and the iterator incremented with the `iterator.next()` method, which returns an object with two properties: `value` holds the current value and a `done` indicates the status of the iteration. When the iteration finishes, `value` is `undefined` and `done` is `true`. This interface can be somewhat more invconvenient to work with but this is a trade-off of not signaling the iteration state using an exception.
+In JavaScript, in contrast to Python, there's no global function to get an iterator of an object. It can be obtained with the `myList[Symbol.iterator]()`. The current value can be accessed and the iterator incremented with the `iterator.next()` method, which returns an object with two properties: `value` holds the current value and a `done` indicates the status of the iteration. When the iteration finishes, `value` is `undefined` and `done` is `true`. This interface can be somewhat more invconvenient to work with but this is a trade-off of not signaling the iteration state with an exception.
 
-With the iterator interface in our toolchain we can design a faithful implementation of the Python `zip` and `itertools.zip_longest` functions in JavaScript supporting iterables. Let's focus on supporting two elements first and stop as soon as one of the iterators is exhausted:
+With the iterator interface under our belt, we can design a faithful implementation of the Python `zip` and `itertools.zip_longest` functions in JavaScript. Let's focus on supporting two elements first and stop as soon as one of the iterators is exhausted:
 
 ```javascript
 function zip(iterableA, iterableB) {
@@ -209,7 +202,7 @@ The actual results can be viewed by turning these results into an array with the
 [ [ 1, 'a' ], [ 2, 'b' ], [ 3, 'c' ] ]
 ```
 
-The implementation is getting really close to the Python one, but it still only supports two arrays. How could it be extended to work with an arbitrary number of arrays? The parameters of the function would have to be rolled up into a single `iterables` parameter using [rest parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters). Each operation on the iterators or on the iterStates is now wrapped in a map, except from the condition of the loop, which uses `every` to check if any of the iterators are exhausted.
+The implementation is getting really close to the Python one, but it still only supports two arrays. How could it be extended to work with an arbitrary number of arrays? The parameters of the function would have to be rolled up into a single `iterables` parameter, using [rest parameters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters). Each operation on the iterators or on the iterStates is now wrapped in a map, except from the condition of the loop, which uses `every` to check if any of the iterators are exhausted.
 
 ```javascript
 function* zip(...iterables) {
@@ -238,7 +231,7 @@ Matrix transposition is no longer an issue for `zip`:
 [ [ 1, 4, 7 ], [ 2, 5, 8 ], [ 3, 6, 9 ] ]
 ```
 
-Lastly, let's add the `zip_longest` behaviour. There will be a `zip` and a `zip_longest` functin exposed (exported), and an internal `_zip` function will capture the common functionality.
+What would it take to also implement the `zip_longest` functionality? Let's change the implementation, such that there will be a `zip` and a `zip_longest` function exposed (exported), and an internal `_zip` function will capture the common functionality.
 
 ```javascript
 function* _zip(evaluator, iterables) {
@@ -276,6 +269,8 @@ function* zipLongest(...iterables) {
   [ 5, undefined, undefined ]
 ]
 ```
+
+And to reach feature parity with `zip_longest`, let's also add the `fillValue`:
 
 ```javascript
 function* _zip(evaluator, iterables, fillValue) {
@@ -315,3 +310,11 @@ function* zipLongestFill(fillValue = undefined, ...iterables) {
   [ 5, 'a', 'a' ]
 ]
 ```
+
+Thank you very much for reading my post. In case you have any suggestions or questions, ping me on Twitter!
+
+<span id="jump-1">1,</span>
+The `zip` function is available in the most popular utility library, Lodash, as `_.zip`. There are two problems with the Lodash implementation:
+
+- It implicitly implements the `itertools.zip_longest` functionality without documenting it, or offering a padding value.
+- Not necessarily a problem, but it only operates on arrays and returns an array without any lazy evaluation. This probably serves an average JavaScript user, but not if you're hungry for scalability and performance.
