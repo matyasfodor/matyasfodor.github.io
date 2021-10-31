@@ -1,3 +1,5 @@
+$mobile-breakpoint: 800px;
+
 .container {
   width: 100%;
   min-height: 100%;
@@ -29,24 +31,36 @@
   flex-grow: 1;
   justify-content: space-between;
   flex-wrap: wrap;
+
+  @media (max-width: $mobile-breakpoint) {
+    flex-direction: column;
+  }
+  @media (min-width: $mobile-breakpoint) {
+    flex-grow: none;
+  }
 }
 
 .leftAside {
   order: 0;
-  flex: 1;
 
-  @media (max-width: 800px) {
+  @media (max-width: $mobile-breakpoint) {
     order: 1;
     width: 100%;
+  }
+
+  @media (min-width: $mobile-breakpoint) {
+    flex: 1;
   }
 }
 
 .rightAside {
-  flex: 1;
-
   order: 2;
-  @media (max-width: 800px) {
+  @media (max-width: $mobile-breakpoint) {
     width: 100%;
+  }
+
+  @media (min-width: $mobile-breakpoint) {
+    flex: 1;
   }
 }
 
@@ -55,9 +69,9 @@
   padding-right: 1rem;
   max-width: 40rem;
   flex: 1;
-
   order: 1;
-  @media (max-width: 800px) {
+
+  @media (max-width: $mobile-breakpoint) {
     order: 0;
     flex-grow: 1;
     max-width: none;
