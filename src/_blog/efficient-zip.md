@@ -98,7 +98,7 @@ I really hope I could convince you by now, how cool and versatile this Python st
 None of these
  -->
 
-## How JavaScript could do it?
+## <span id="how-javascript-could-do-it">How JavaScript could do it?</span>
 
 Before jumping into the implementation, let's take a detour and inspect the differences between the Python and the JavaScript iterator interface.
 
