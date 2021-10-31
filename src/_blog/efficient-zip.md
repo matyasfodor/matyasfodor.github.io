@@ -15,6 +15,8 @@ hidden: false
 
 <!-- I find the `zip` in Python quite useful. -->
 
+## How Python does it?
+
 The Python `zip` function is a clever analogy of a real zipper: It allows you to iterate over multiple arrays element-wise without having to worry about indices. It is quite handy when you have to manually pair elements coming from two (or more) data sources:
 
 ```python
@@ -95,6 +97,8 @@ I really hope I could convince you by now, how cool and versatile this Python st
 
 None of these
  -->
+
+## How JavaScript could do it?
 
 Before jumping into the implementation, let's take a detour and inspect the differences between the Python and the JavaScript iterator interface.
 
