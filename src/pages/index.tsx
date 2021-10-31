@@ -18,8 +18,7 @@ function App({ posts, blogPosts }: LayoutProps) {
       <MetaTags />
       <section>
         <p>
-          I am an AI graduate currently working as a fullstack developer and
-          tech lead at{" "}
+          I am an AI graduate currently working as a tech lead at{" "}
           <a rel="noreferrer noopener" href="https://www.benevolent.com/">
             BenevolentAI
           </a>

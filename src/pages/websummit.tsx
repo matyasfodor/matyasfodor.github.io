@@ -10,12 +10,12 @@ function WebSummit({ posts, blogPosts }: LayoutProps) {
       <section>
         <h1>Greetings fellow Websummiter!&nbsp;👋🏻</h1>
         <p>
-          I'm glad we met in Lisbon. I am Matyas, an ex startup co-founder, a
-          software engineer currently looking for my next gig. Over the years I
-          worked in many positions at companies of different sizes and I tried
-          to define what would be the ideal role for me. What I've enjoyed the
-          most is laying down the fundations of a fintech solution and building
-          a tech team. I am looking for a similar opportunity, but I am open to
+          I'm glad we met in Lisbon. I am Matyas, a startup co-founder and a
+          software engineer. I am currently looking for my next gig. Over the
+          years I worked in many positions at companies of different sizes and I
+          tried to define what would be the ideal role for me. What I've enjoyed
+          the most is laying down the fundations of a product and building a
+          tech team. I am looking for a similar opportunity, but I am open to
           talk about other opportunities as well.
         </p>
         <h2>I can help you with</h2>
@@ -34,8 +34,8 @@ function WebSummit({ posts, blogPosts }: LayoutProps) {
         <h2>Some key highlights from my background:</h2>
         <ul>
           <li>
-            Vast startup experience - having worked at 5 different startups in
-            the past 7 years, across different industries
+            Vast startup experience - having worked with five different startups
+            in the past decade, across different industries
           </li>
           <li>Worked in multiple technical managerial roles</li>
           <li>Conducted 30+ interviews</li>
