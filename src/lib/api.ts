@@ -56,11 +56,15 @@ export function getPostBySlug(
   return items;
 }
 
-export function getAllPosts(
-  folder: string,
-  fields: (keyof Post)[] = [],
-  includeHidden = true
-): Post[] {
+export function getAllPosts({
+  folder,
+  fields = [],
+  includeHidden = true,
+}: {
+  folder: string;
+  fields?: (keyof Post)[];
+  includeHidden?: boolean;
+}): Post[] {
   const slugs = getPostSlugs(folder);
   const posts = slugs
     .map((slug) => getPostBySlug(folder, slug, [...fields, "hidden"]) as Post)

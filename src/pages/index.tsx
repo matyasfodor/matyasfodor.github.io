@@ -4,6 +4,7 @@ import { GetStaticProps } from "next";
 import { BLOG_FOLDER, getAllPosts, PROJECTS_FOLDER } from "../lib/api";
 import { useRouter } from "next/router";
 import { FEATURES } from "../lib/consts";
+import { generateRss } from "../lib/rss";
 
 function App({ posts, blogPosts }: LayoutProps) {
   const router = useRouter();
@@ -41,10 +42,19 @@ function App({ posts, blogPosts }: LayoutProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  await generateRss();
   return Promise.resolve({
     props: {
-      posts: getAllPosts(PROJECTS_FOLDER, ["slug", "title"], false),
-      blogPosts: getAllPosts(BLOG_FOLDER, ["slug", "title"], false),
+      posts: getAllPosts({
+        folder: PROJECTS_FOLDER,
+        fields: ["slug", "title"],
+        includeHidden: false,
+      }),
+      blogPosts: getAllPosts({
+        folder: BLOG_FOLDER,
+        fields: ["slug", "title"],
+        includeHidden: false,
+      }),
     },
   });
 };

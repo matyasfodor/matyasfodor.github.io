@@ -2,7 +2,7 @@
 title: "Efficient zip function in JavaScript"
 excerpt: "A case study of porting a standard Python utility to JavaScript"
 # coverImage: "/assets/blog/dynamic-routing/cover.jpg"
-date: "2020-04-27T00:46:07.322Z"
+date: "2021-11-14T00:46:07.322Z"
 author:
   name: Matyas Fodor
   # picture: "/assets/blog/authors/jj.jpeg"
@@ -316,6 +316,8 @@ function* zipLongestFill(fillValue = undefined, ...iterables) {
 ```
 
 Thank you very much for reading my post. In case you have any suggestions or questions, ping me on Twitter!
+
+<hr/>
 
 <span id="jump-1">1,</span>
 The `zip` function is available in the most popular utility library, Lodash, as `_.zip`. There are two problems with the Lodash implementation:

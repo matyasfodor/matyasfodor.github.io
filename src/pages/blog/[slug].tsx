@@ -66,8 +66,16 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
         ...post,
         content,
       },
-      posts: getAllPosts(PROJECTS_FOLDER, ["slug", "title"], false),
-      blogPosts: getAllPosts(BLOG_FOLDER, ["slug", "title"], false),
+      posts: getAllPosts({
+        folder: PROJECTS_FOLDER,
+        fields: ["slug", "title"],
+        includeHidden: false,
+      }),
+      blogPosts: getAllPosts({
+        folder: BLOG_FOLDER,
+        fields: ["slug", "title"],
+        includeHidden: false,
+      }),
     },
   });
 };

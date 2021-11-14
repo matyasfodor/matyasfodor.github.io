@@ -5,12 +5,16 @@ import {
   faLinkedin,
   faStrava,
   faStackOverflow,
+  IconDefinition,
 } from "@fortawesome/free-brands-svg-icons";
+
+import { faRss } from "@fortawesome/free-solid-svg-icons";
 
 import styles from "./SocialLinks.module.scss";
 
 const SocialLinks = () => {
-  const links = [
+  const links: { link: string; icon: IconDefinition }[] = [
+    { link: "https://matyasfodor.com/blog/rss.xml", icon: faRss },
     { link: "https://github.com/matyasfodor", icon: faGithub },
     { link: "https://twitter.com/MTY_FDR", icon: faTwitter },
     {

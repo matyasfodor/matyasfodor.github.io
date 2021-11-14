@@ -11,10 +11,10 @@ function WebSummit({ posts, blogPosts }: LayoutProps) {
         <h1>Greetings fellow Websummiter!&nbsp;👋🏻</h1>
         <p>
           I'm glad we met in Lisbon. I am Matyas, a startup co-founder and a
-          software engineer. I am currently looking for my next gig. Over the
+          software engineer. Currently, I am looking for my next gig. Over the
           years I worked in many positions at companies of different sizes and I
           tried to define what would be the ideal role for me. What I've enjoyed
-          the most is laying down the fundations of a product and building a
+          the most is laying down the foundations of a product and building a
           tech team. I am looking for a similar opportunity, but I am open to
           talk about other opportunities as well.
         </p>
@@ -49,8 +49,16 @@ function WebSummit({ posts, blogPosts }: LayoutProps) {
 export const getStaticProps: GetStaticProps = async () => {
   return Promise.resolve({
     props: {
-      posts: getAllPosts(PROJECTS_FOLDER, ["slug", "title"], false),
-      blogPosts: getAllPosts(BLOG_FOLDER, ["slug", "title"], false),
+      posts: getAllPosts({
+        folder: PROJECTS_FOLDER,
+        fields: ["slug", "title"],
+        includeHidden: false,
+      }),
+      blogPosts: getAllPosts({
+        folder: BLOG_FOLDER,
+        fields: ["slug", "title"],
+        includeHidden: false,
+      }),
     },
   });
 };
