@@ -13,7 +13,7 @@ hidden: false
 
 # URL encoder/decoder
 
-A few weeks ago I was in the need of an URL encoder, and I wasn't quite satisfied with the available online tools, so I decided to build one on my own. The difference between the prior art and my project, [urlencode.matyasfodor.com/](https://http://urlencode.matyasfodor.com/) is that there's no pasted data sent to the server. Plus it is hopefully more visually pleasing. It is built with [Snowpack](https://www.snowpack.dev), TypeScript, and the very best organic, home-grown CSS, supporting dark mode.
+A few weeks ago I was in the need of an URL encoder, and I wasn't quite satisfied with the available online tools, so I decided to build one on my own. The difference between the prior art and my project, [urlencode.matyasfodor.com](https://urlencode.matyasfodor.com) is that there's no pasted data sent to the server. Plus it is hopefully more visually pleasing. It is built with [Snowpack](https://www.snowpack.dev), TypeScript, and the very best organic, home-grown CSS, supporting dark mode.
 
 ## Materials & Methods
 
