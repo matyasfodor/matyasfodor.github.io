@@ -2,6 +2,9 @@ $mobile-breakpoint: 800px;
 
 .container {
   width: 100%;
+  max-width: 1464px;
+  margin-left: auto;
+  margin-right: auto;
   min-height: 100%;
   display: flex;
   flex-direction: column;
