@@ -21,12 +21,12 @@ type Props = {
   post?: Post & { content: string };
 } & LayoutProps;
 
-const Project: FC<Props> = ({ posts, post, blogPosts }: Props) => {
+const Project: FC<Props> = ({ posts, post, blogPosts, tools }: Props) => {
   if (!post) {
     return <div>Loading..</div>;
   }
   return (
-    <Layout posts={posts} blogPosts={blogPosts}>
+    <Layout posts={posts} blogPosts={blogPosts} tools={tools}>
       <article>
         <Head>
           <title>{post.title}</title>
@@ -43,7 +43,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   params,
 }) => {
   if (!params) {
-    return { props: { posts: [], blogPosts: [] } };
+    return { props: { posts: [], blogPosts: [], tools: [] } };
   }
   const post = getPostBySlug(PROJECTS_FOLDER, params?.slug, [
     "title",
@@ -72,6 +72,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
         fields: ["slug", "title"],
         includeHidden: false,
       }),
+      tools: [{ slug: "pace-calculator", title: "Pace Calculator" }],
     },
   });
 };

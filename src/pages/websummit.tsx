@@ -3,9 +3,9 @@ import Layout, { LayoutProps } from "../components/Layout";
 import { GetStaticProps } from "next";
 import { BLOG_FOLDER, getAllPosts, PROJECTS_FOLDER } from "../lib/api";
 
-function WebSummit({ posts, blogPosts }: LayoutProps) {
+function WebSummit({ posts, blogPosts, tools }: LayoutProps) {
   return (
-    <Layout posts={posts} blogPosts={blogPosts}>
+    <Layout posts={posts} blogPosts={blogPosts} tools={tools}>
       <MetaTags />
       <section>
         <h1>Greetings fellow Websummiter!&nbsp;👋🏻</h1>
@@ -59,6 +59,7 @@ export const getStaticProps: GetStaticProps = async () => {
         fields: ["slug", "title"],
         includeHidden: false,
       }),
+      tools: [{ slug: "pace-calculator", title: "Pace Calculator" }],
     },
   });
 };
