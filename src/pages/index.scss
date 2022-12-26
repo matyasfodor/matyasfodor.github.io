@@ -29,9 +29,6 @@ body {
     border-color: #084957;
   }
 
-  code:not(.hljs) {
-    color: #a30008;
-  }
 
   &.dark-mode {
     background-color: black;
@@ -54,8 +51,14 @@ body {
       border-color: #f0f;
     }
 
-    code:not(.hljs) {
+    code {
       color: orange;
+    }
+
+    pre > code {
+      display: block;
+      width: 100%;
+      overflow-y: scroll;
     }
   }
 }

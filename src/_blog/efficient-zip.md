@@ -119,7 +119,7 @@ Traceback (most recent call last):
 StopIteration
 ```
 
-The iterator of an iterable object can be obtained with the global `iter()` function, and the also globally available `next()` function can be used to fetch the current value and increment the iterator. The end of the iteration is signaled by the `StopIteration` built-in exception. The Python iterator mechanism is built with the side-effect of raising an error, which happens under the hod in every for-loop. This allows a very ergonomic workflow, although it might seem unorthodox to make use of exceptions in the expected behaviour of the code flow.
+The iterator of an iterable object can be obtained with the global `iter()` function, and the also globally available `next()` function can be used to fetch the current value and increment the iterator. The end of the iteration is signaled by the `StopIteration` built-in exception. The Python iterator mechanism is built with the side-effect of raising an error, which happens under the hood in every for-loop. This allows a very ergonomic workflow, although it might seem unorthodox to make use of exceptions in the expected behaviour of the code flow.
 
 How would this look like in JavaScript?
 
