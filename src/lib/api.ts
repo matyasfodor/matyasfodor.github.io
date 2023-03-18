@@ -24,7 +24,7 @@ const postsDirectory = join(process.cwd(), "src");
 export function getPostSlugs(folder: string) {
   return fs
     .readdirSync(join(postsDirectory, folder))
-    .map((filename) => filename.replace(/\.md$/, ""));
+    .map((filename) => filename.replace(/\.mdx$/, ""));
 }
 
 export function getPostBySlug(
@@ -32,8 +32,8 @@ export function getPostBySlug(
   slug: string,
   fields: (keyof Post)[] = []
 ): Partial<Post> {
-  const realSlug = slug.replace(/\.md$/, "");
-  const fullPath = join(postsDirectory, folder, `${realSlug}.md`);
+  const realSlug = slug.replace(/\.mdx$/, "");
+  const fullPath = join(postsDirectory, folder, `${realSlug}.mdx`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
