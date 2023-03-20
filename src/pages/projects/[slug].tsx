@@ -13,6 +13,7 @@ import {
 } from "../../lib/api";
 import Layout, { LayoutProps } from "../../components/Layout";
 import { FC } from "react";
+import rehypeHighlight from "rehype-highlight";
 
 const components = {
   TestComponent: () => <p>Hello from TestComponent</p>
@@ -70,7 +71,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   const mdxSource = await serialize(post.content, {
     mdxOptions: {
       remarkPlugins: [],
-      rehypePlugins: [],
+      rehypePlugins: [rehypeHighlight],
     },
     scope: post,
   })

@@ -2,6 +2,10 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
 import { MDXRemote } from 'next-mdx-remote'
 
+import { serialize } from 'next-mdx-remote/serialize'
+import { FC } from "react";
+import rehypeHighlight from "rehype-highlight";
+
 import {
   BLOG_FOLDER,
   getAllPosts,
@@ -11,9 +15,6 @@ import {
   PROJECTS_FOLDER,
 } from "../../lib/api";
 import Layout, { LayoutProps } from "../../components/Layout";
-import { serialize } from 'next-mdx-remote/serialize'
-import { FC } from "react";
-
 type Params = {
   slug: string;
 };
@@ -47,10 +48,6 @@ const Project: FC<Props> = ({
         <Head>
           <title>{frontMatter.title}</title>
           <meta property="og:image" content={frontMatter?.ogImage?.url} />
-          <link
-            rel="stylesheet"
-            href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.2/build/styles/xt256.min.css"
-          ></link>
         </Head>
       </article>
 
@@ -78,7 +75,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   const mdxSource = await serialize(post.content, {
     mdxOptions: {
       remarkPlugins: [],
-      rehypePlugins: [],
+      rehypePlugins: [rehypeHighlight],
     },
     scope: post,
   })
