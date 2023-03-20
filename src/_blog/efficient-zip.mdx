@@ -13,9 +13,9 @@ hidden: false
 
 # Efficient zip function in JavaScript
 
-## How Python does it?
+## What's the Python zip function?
 
-The Python `zip` function is a clever analogy of a real zipper: It allows you to iterate over multiple arrays element-wise without having to worry about indices. It is quite handy when you have to manually pair elements coming from two (or more) data sources:
+The Python `zip` function is a clever analogy of a real zipper: It allows iterating over multiple arrays element-wise without having to manage the indices. It is quite handy when you have to manually pair elements coming from two (or more) data sources:
 
 ~~~python
 >>> scoreList = [5, 3, 6, 8]
@@ -31,7 +31,7 @@ Please note the `list()` call is needed to convert the result to a list, otherwi
 # <zip object at 0x109b19d00>
 ~~~
 
-which is an object implementing the iterator interface. Why the hassle with this object? Why is it not just a list? The iterator interface allows lazy-evaluation, meaning it won't create a list, only if it's asked. This object instead allows generating elements on-demand, which can be more efficient. Let's say I want to find the first player with score 6:
+which is an object implementing the iterator interface. Why the hassle with this iterator object? Why is it not just a list? The iterator interface allows lazy-evaluation, meaning it won't create a list, only if it's asked for. Instead, this object allows generating elements on-demand, which can be more efficient. Let's say I want to find the first player with score 6:
 
 ~~~python
 for score, player in zip(scoreList, playerList):
@@ -42,7 +42,7 @@ for score, player in zip(scoreList, playerList):
 
 In this case, the iteration stops with (`(6, 'Emma')`) and the last pair (`(8, 'Gavin')`) would never be constructed.
 
-The implementation is quite interesting, because `zip` not only works with two lists, it can more than two arrays as input parameters. This can be particularly useful when trying to transpose a list of lists (a matrix). If you're not familiar with the term `transpose`, it simply means a list of list is simply flipped by its diagonal. The transposition of
+The `zip` not only works with two lists, it can take more arrays as input parameters. This can be particularly useful, when trying to transpose a list of lists (a matrix). If you're not familiar with the term `transpose`, it simply means a list of list is simply flipped by its diagonal. The transposition of
 
 ~~~python
 [
@@ -89,7 +89,7 @@ And just to spice things up the little, let me mention that as the `zip` functio
 
 I really hope I could convince you by now, how cool and versatile this Python standard library function is. Why can't we have nice things in JavaScript? Well we can, you just probably end up hunting for third-parties on npm<sup><a href="#jump-1">1</a></sup> or ready-made solutions on Stack Overflow. But is there anything more satisfying than using your home-grown utilities?
 
-## <span id="how-javascript-could-do-it">How JavaScript could do it?</span>
+## <span id="how-javascript-could-do-it">The zip function in JavaScript</span>
 
 Before jumping into the implementation, let's take a detour and inspect the differences between the Python and the JavaScript iterator interface.
 
@@ -110,26 +110,24 @@ Traceback (most recent call last):
 StopIteration
 ~~~
 
-The iterator of an iterable object can be obtained with the global `iter()` function, and the also globally available `next()` function can be used to fetch the current value and increment the iterator. The end of the iteration is signaled by the `StopIteration` built-in exception. The Python iterator mechanism is built with the side-effect of raising an error, which happens under the hood in every for-loop. This allows a very ergonomic workflow, although it might seem unorthodox to make use of exceptions in the expected behaviour of the code flow.
+The iterator of an iterable object can be obtained with the global `iter()` function, and the also globally available `next()` function can be used to fetch the current value and increment the iterator. The end of the iteration is signaled by the `StopIteration` exception. The Python iterator mechanism is built with the side-effect of raising an error, which happens under the hood in every for-loop. This allows a very ergonomic workflow, although it might seem unorthodox to make use of exceptions in the expected behaviour of the code flow.
 
 How would this look like in JavaScript?
 
 ~~~javascript
 > var myList = ['a', 'b', 'c'];
-undefined
-> var myListIterator = myList[Symbol.iterator]()
-undefined
-> myListIterator.next()
+> var myListIterator = myList[Symbol.iterator]();
+> myListIterator.next();
 { value: 'a', done: false }
-> myListIterator.next()
+> myListIterator.next();
 { value: 'b', done: false }
-> myListIterator.next()
+> myListIterator.next();
 { value: 'c', done: false }
-> myListIterator.next()
+> myListIterator.next();
 { value: undefined, done: true }
 ~~~
 
-In JavaScript, in contrast to Python, there's no global function to get an iterator of an object. It can be obtained with the `myList[Symbol.iterator]()`. The current value can be accessed and the iterator incremented with the `iterator.next()` method, which returns an object with two properties: `value` holds the current value and a `done` indicates the status of the iteration. When the iteration finishes, `value` is `undefined` and `done` is `true`. This interface can be somewhat more invconvenient to work with but this is a trade-off of not signaling the iteration state with an exception.
+In JavaScript, in contrast to Python, there's no global function to get an iterator of an object. It can be obtained with the `myList[Symbol.iterator]()`. The current value can be accessed and the iterator incremented with the `iterator.next()` method, which returns an object with two properties: `value` holds the current value and a `done` indicates the status of the iteration. When the iteration finishes, `value` is `undefined` and `done` is `true`. This interface can be somewhat more invconvenient to work with but this is a trade-off of not signaling the end-of-iteration state with an exception.
 
 With the iterator interface under our belt, we can design a faithful implementation of the Python `zip` and `itertools.zip_longest` functions in JavaScript. Let's focus on supporting two elements first and stop as soon as one of the iterators is exhausted:
 
