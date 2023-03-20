@@ -1,8 +1,7 @@
 import fs from "fs";
 import { Feed } from "feed";
-
+import { evaluateSync } from '@mdx-js/mdx'
 import { BLOG_FOLDER, getAllPosts, Post } from "../lib/api";
-import markdownToHtml from "./markdownToHtml";
 
 const BASE_URL = "https://matyasfodor.com";
 
@@ -13,6 +12,9 @@ export const getRss = async (
   atom: string;
   json: string;
 }> => {
+  const runtime = await import('react/jsx-runtime');
+  const { renderToString } = await import('react-dom/server');
+
   const feed = new Feed({
     title: "Matyas Fodor - Yet another JS blog",
     description:
@@ -37,13 +39,23 @@ export const getRss = async (
   });
 
   for (let post of blogPosts) {
+    // @ts-ignore
+    const { default: mdxSource } = evaluateSync(post.content, {
+      ...runtime,
+      remarkPlugins: [],
+      rehypePlugins: [],
+      development: false
+    });
+
+    const content = renderToString(mdxSource({}));
+
     const url = `${BASE_URL}/blog/${post.slug}`;
     feed.addItem({
       title: post.title,
       id: url,
       link: url,
       description: post.excerpt,
-      content: await markdownToHtml(post.content),
+      content,
       author: [
         {
           name: "Matyas Fodor",

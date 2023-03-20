@@ -1,5 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
+import { MDXRemote } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
 
 import {
   BLOG_FOLDER,
@@ -10,31 +12,42 @@ import {
   PROJECTS_FOLDER,
 } from "../../lib/api";
 import Layout, { LayoutProps } from "../../components/Layout";
-import markdownToHtml from "../../lib/markdownToHtml";
 import { FC } from "react";
+
+const components = {
+  TestComponent: () => <p>Hello from TestComponent</p>
+}
 
 type Params = {
   slug: string;
 };
 
 type Props = {
-  post?: Post & { content: string };
-} & LayoutProps;
+  source: {
+    scope: unknown,
+    compiledSource: string,
+  } | null,
+  frontMatter: {
+    title: string
+    ogImage?: {
+      url: string
+    }
+  } | null,} & LayoutProps;
 
-const Project: FC<Props> = ({ posts, post, blogPosts }: Props) => {
-  if (!post) {
+const Project: FC<Props> = ({ source, frontMatter, posts, blogPosts }: Props) => {
+  if (source === null || frontMatter === null || !source.compiledSource) {
     return <div>Loading..</div>;
   }
   return (
     <Layout posts={posts} blogPosts={blogPosts}>
       <article>
         <Head>
-          <title>{post.title}</title>
+          <title>{frontMatter.title}</title>
           {/* <meta property="og:image" content={post.ogImage.url} /> */}
         </Head>
       </article>
 
-      <div dangerouslySetInnerHTML={{ __html: post.content }} />
+      <MDXRemote {...source} frontmatter={frontMatter} components={components} />
     </Layout>
   );
 };
@@ -43,7 +56,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
   params,
 }) => {
   if (!params) {
-    return { props: { posts: [], blogPosts: [] } };
+    return { props: { posts: [], blogPosts: [], source: null, frontMatter: null } };
   }
   const post = getPostBySlug(PROJECTS_FOLDER, params?.slug, [
     "title",
@@ -54,14 +67,17 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
     // "ogImage",
     // "coverImage",
   ]) as Post;
-  const content = await markdownToHtml(post.content || "");
-
+  const mdxSource = await serialize(post.content, {
+    mdxOptions: {
+      remarkPlugins: [],
+      rehypePlugins: [],
+    },
+    scope: post,
+  })
   return Promise.resolve({
     props: {
-      post: {
-        ...post,
-        content,
-      },
+      source: mdxSource,
+      frontMatter: post,
       posts: getAllPosts({
         folder: PROJECTS_FOLDER,
         fields: ["slug", "title"],

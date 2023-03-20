@@ -23,7 +23,6 @@ const components = {
 }
 
 type Props = {
-  post?: Post & { content: string };
   source: {
     scope: unknown,
     compiledSource: string,
