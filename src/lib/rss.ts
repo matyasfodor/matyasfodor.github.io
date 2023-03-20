@@ -1,6 +1,9 @@
 import fs from "fs";
 import { Feed } from "feed";
 import { evaluateSync } from '@mdx-js/mdx'
+import * as runtime from 'react/jsx-runtime';
+import {renderToString} from 'react-dom/server';
+
 import { BLOG_FOLDER, getAllPosts, Post } from "../lib/api";
 
 const BASE_URL = "https://matyasfodor.com";
@@ -12,9 +15,6 @@ export const getRss = async (
   atom: string;
   json: string;
 }> => {
-  const runtime = await import('react/jsx-runtime');
-  const { renderToString } = await import('react-dom/server');
-
   const feed = new Feed({
     title: "Matyas Fodor - Yet another JS blog",
     description:
