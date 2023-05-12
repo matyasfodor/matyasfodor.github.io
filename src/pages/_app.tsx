@@ -10,7 +10,7 @@ export default function MyApp({
   Component: typeof ReactComponent;
   pageProps: any;
 }) {
-  useGA("UA-186090362-1");
+  useGA("G-N07115D5HQ");
 
   const { isMounted } = useIsMounted();
 
