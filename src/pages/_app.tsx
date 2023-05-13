@@ -1,6 +1,7 @@
 import { Component as ReactComponent } from "react";
 import { useGA } from "../hooks/useGA";
 import { useIsMounted } from "../hooks/useIsMounted";
+import CookieConsent from "react-cookie-consent";
 import "./index.scss";
 
 export default function MyApp({
@@ -14,7 +15,14 @@ export default function MyApp({
 
   const { isMounted } = useIsMounted();
 
-  const body = <Component {...pageProps} />;
+  const body = (
+    <>
+      <Component {...pageProps} />
+      <CookieConsent>
+        This website uses cookies to enhance the user experience.
+      </CookieConsent>
+    </>
+  );
 
   if (!isMounted) {
     return <div style={{ visibility: "hidden" }}>{body}</div>;
