@@ -5,13 +5,18 @@ import SocialLinks from "./SocialLinks";
 import Toggle from "./Toggle";
 import ContentBox from "./ContentBox";
 import type { SidebarContentListItem } from "../commonTypes";
+import { PropsWithChildren } from "react";
 
 export type LayoutProps = {
   posts: SidebarContentListItem[];
   blogPosts: SidebarContentListItem[];
 };
 
-const Layout: React.FC<LayoutProps> = ({ posts, blogPosts, children }) => {
+const Layout: React.FC<PropsWithChildren<LayoutProps>> = ({
+  posts,
+  blogPosts,
+  children,
+}) => {
   const darkMode = useDarkMode();
 
   return (

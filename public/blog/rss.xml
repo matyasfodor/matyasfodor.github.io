@@ -12,7 +12,7 @@
         <item>
             <title><![CDATA[Efficient zip function in JavaScript]]></title>
             <link>https://matyasfodor.com/blog/efficient-zip</link>
-            <guid>https://matyasfodor.com/blog/efficient-zip</guid>
+            <guid isPermaLink="false">https://matyasfodor.com/blog/efficient-zip</guid>
             <pubDate>Sun, 14 Nov 2021 00:46:07 GMT</pubDate>
             <content:encoded><![CDATA[<h1>Efficient zip function in JavaScript</h1>
 <h2>What&#x27;s the Python zip function?</h2>
