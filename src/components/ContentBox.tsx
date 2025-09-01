@@ -15,8 +15,11 @@ const ContentBox = ({ posts, title, urlPath }: ContentBoxProps) => {
       <ul className="no-list">
         {posts.map(({ slug, title }) => (
           <li key={slug} className={style.listItem}>
-            <Link href={`/${urlPath}/${slug}`}>
-              <a className={`no-link text ${style.link}`}>{title}</a>
+            <Link
+              href={`/${urlPath}/${slug}`}
+              className={`no-link text ${style.link}`}
+            >
+              {title}
             </Link>
           </li>
         ))}
