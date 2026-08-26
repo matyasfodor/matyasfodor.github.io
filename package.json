@@ -27,12 +27,16 @@
     "remark-html": "^16.0.1",
     "source-map-explorer": "^2.5.3",
     "use-dark-mode": "^2.3.1",
-    "web-vitals": "^5.1.0"
+    "web-vitals": "^5.1.0",
+    "zod": "^4.4.3"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "dev": "next dev",
+    "dev:local": "sh scripts/dev-local.sh",
     "build": "next build",
+    "redis:cli": "docker compose exec redis redis-cli",
+    "redis:down": "docker compose down",
     "start": "next start",
     "xtest (not sure how to re-enable tests with next.js)": "react-scripts test"
   },

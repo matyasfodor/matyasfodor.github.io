@@ -1,5 +1,55 @@
 # Getting Started with Create React App
 
+## QR redirect tracker
+
+`/go/[slug]` is a privacy-minimal QR redirect endpoint. Each successful `GET`
+atomically increments one Redis integer named `qr:hits:<slug>`, then returns an
+HTTP 302 redirect. It does not store IP addresses, user agents, referrers,
+cookies, or individual visit records. Counter failures are logged but do not
+prevent the redirect.
+
+Configure these server-only environment variables in Vercel:
+
+```dotenv
+QR_REDIRECTS_JSON={"futas":"https://www.facebook.com/events/YOUR_EVENT_ID"}
+UPSTASH_REDIS_REST_URL=https://YOUR_DATABASE.upstash.io
+UPSTASH_REDIS_REST_TOKEN=YOUR_TOKEN
+```
+
+Create or connect an Upstash Redis database from the Vercel Marketplace. Vercel
+adds the two Upstash variables automatically; redeploy after connecting it.
+Add `QR_REDIRECTS_JSON` for Production (and Preview/Development if wanted), then
+redeploy. Changing a value in that JSON map and redeploying changes the target
+without changing a printed QR containing, for example,
+`https://matyasfodor.com/go/futas`.
+
+The total can be read in the Upstash console with `GET qr:hits:futas`. A `HEAD`
+request redirects without incrementing the count, so uptime checks and link
+previews do not inflate it.
+
+### Local redirect tracker
+
+Local development uses Docker Compose to run Redis plus an HTTP proxy compatible
+with the Upstash REST API expected by the application. Docker must be running.
+
+Set the local redirect destinations once, then start the full stack:
+
+```bash
+cp .env.example .env.local
+# Edit QR_REDIRECTS_JSON in .env.local.
+npm run dev:local
+```
+
+Stopping the Next.js process also stops the containers. Redis data persists in
+the `qr-redis-data` Docker volume. Inspect the counter with:
+
+```bash
+npm run redis:cli -- GET qr:hits:futas
+```
+
+Use `npm run dev` when Redis and hit counting are not needed. Production still
+uses the Upstash-provided REST URL and token configured in Vercel.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

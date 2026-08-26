@@ -248,6 +248,7 @@ The <code>zip</code> function is available in the most popular utility library, 
 <li>It implicitly implements the <code>itertools.zip_longest</code> functionality without documenting it, or offering a padding value.</li>
 <li>Not necessarily a problem, but it only operates on arrays and returns an array without any lazy evaluation. This probably serves an average JavaScript user, but not if you&#x27;re hungry for scalability and performance.</li>
 </ul>]]></content:encoded>
+            <author>Matyas Fodor</author>
         </item>
     </channel>
 </rss>
