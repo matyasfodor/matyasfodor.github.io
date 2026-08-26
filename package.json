@@ -21,6 +21,7 @@
     "react-cookie-consent": "^9.0.0",
     "react-dom": "^19.2.1",
     "react-ga4": "^2.1.0",
+    "redis": "^6.2.1",
     "rehype": "^13.0.2",
     "rehype-highlight": "^7.0.2",
     "remark": "^15.0.1",

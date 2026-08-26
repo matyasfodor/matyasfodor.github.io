@@ -13,9 +13,8 @@ cleanup() {
 
 trap cleanup EXIT INT TERM
 
-docker compose up -d --wait
+docker compose up -d --wait --remove-orphans
 
-export UPSTASH_REDIS_REST_URL=http://localhost:8079
-export UPSTASH_REDIS_REST_TOKEN=local-dev-token
+export REDIS_URL=redis://localhost:6379
 
 npm run dev

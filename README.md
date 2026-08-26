@@ -12,12 +12,11 @@ Configure these server-only environment variables in Vercel:
 
 ```dotenv
 QR_REDIRECTS_JSON={"futas":"https://www.facebook.com/events/YOUR_EVENT_ID"}
-UPSTASH_REDIS_REST_URL=https://YOUR_DATABASE.upstash.io
-UPSTASH_REDIS_REST_TOKEN=YOUR_TOKEN
+REDIS_URL=redis://default:YOUR_TOKEN@YOUR_DATABASE:6379
 ```
 
-Create or connect an Upstash Redis database from the Vercel Marketplace. Vercel
-adds the two Upstash variables automatically; redeploy after connecting it.
+Create or connect a Redis database from the Vercel Marketplace and set its
+authenticated connection string as `REDIS_URL`; redeploy after connecting it.
 Add `QR_REDIRECTS_JSON` for Production (and Preview/Development if wanted), then
 redeploy. Changing a value in that JSON map and redeploying changes the target
 without changing a printed QR containing, for example,
@@ -29,8 +28,7 @@ previews do not inflate it.
 
 ### Local redirect tracker
 
-Local development uses Docker Compose to run Redis plus an HTTP proxy compatible
-with the Upstash REST API expected by the application. Docker must be running.
+Local development uses Docker Compose to run Redis. Docker must be running.
 
 Set the local redirect destinations once, then start the full stack:
 
@@ -48,7 +46,7 @@ npm run redis:cli -- GET qr:hits:futas
 ```
 
 Use `npm run dev` when Redis and hit counting are not needed. Production still
-uses the Upstash-provided REST URL and token configured in Vercel.
+uses the authenticated `REDIS_URL` configured in Vercel.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
