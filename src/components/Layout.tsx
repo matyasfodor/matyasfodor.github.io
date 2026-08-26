@@ -1,4 +1,3 @@
-import useDarkMode from "use-dark-mode";
 import type React from "react";
 import styles from "./Layout.module.scss";
 import SocialLinks from "./SocialLinks";
@@ -6,6 +5,7 @@ import Toggle from "./Toggle";
 import ContentBox from "./ContentBox";
 import type { SidebarContentListItem } from "../commonTypes";
 import { PropsWithChildren } from "react";
+import { useDarkMode } from "../hooks/useDarkMode";
 
 export type LayoutProps = {
   posts: SidebarContentListItem[];

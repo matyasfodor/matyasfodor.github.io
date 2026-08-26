@@ -19,7 +19,12 @@ const Toggle = ({
         🌞
       </div>
       <label className={styles.switch}>
-        <input type="checkbox" checked={value} onChange={onChange} />
+        <input
+          type="checkbox"
+          checked={value}
+          onChange={onChange}
+          aria-label="Use dark theme"
+        />
         <span className={`${styles.slider} ${styles.round}`}></span>
       </label>
       <div
