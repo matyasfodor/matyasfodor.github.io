@@ -12,11 +12,11 @@ Configure these server-only environment variables in Vercel:
 
 ```dotenv
 QR_REDIRECTS_JSON={"futas":"https://www.facebook.com/events/YOUR_EVENT_ID"}
-REDIS_URL=redis://default:YOUR_TOKEN@YOUR_DATABASE:6379
+UPSTASH_REDIS_REST_REDIS_URL=redis://default:YOUR_TOKEN@YOUR_DATABASE:6379
 ```
 
 Create or connect a Redis database from the Vercel Marketplace and set its
-authenticated connection string as `REDIS_URL`; redeploy after connecting it.
+authenticated connection string as `UPSTASH_REDIS_REST_REDIS_URL`; redeploy after connecting it.
 Add `QR_REDIRECTS_JSON` for Production (and Preview/Development if wanted), then
 redeploy. Changing a value in that JSON map and redeploying changes the target
 without changing a printed QR containing, for example,
@@ -46,7 +46,7 @@ npm run redis:cli -- GET qr:hits:futas
 ```
 
 Use `npm run dev` when Redis and hit counting are not needed. Production still
-uses the authenticated `REDIS_URL` configured in Vercel.
+uses the authenticated `UPSTASH_REDIS_REST_REDIS_URL` configured in Vercel.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

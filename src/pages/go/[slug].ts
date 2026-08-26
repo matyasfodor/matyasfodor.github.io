@@ -4,8 +4,8 @@ import { qrRedirectDestinations } from "../../lib/qrRedirectsConfig";
 
 const COUNTER_PREFIX = "qr:hits:";
 function connectRedis() {
-  const url = process.env.REDIS_URL;
-  if (!url) throw new Error("REDIS_URL is not configured");
+  const url = process.env.UPSTASH_REDIS_REST_REDIS_URL;
+  if (!url) throw new Error("UPSTASH_REDIS_REST_REDIS_URL is not configured");
 
   const client = createClient({ url });
   client.on("error", (error) => console.error("Redis client error", error));
