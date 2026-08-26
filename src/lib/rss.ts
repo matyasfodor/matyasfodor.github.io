@@ -1,54 +1,41 @@
-import fs from "fs";
 import { Feed } from "feed";
-import { evaluateSync } from '@mdx-js/mdx'
-import * as runtime from 'react/jsx-runtime';
-import {renderToString} from 'react-dom/server';
-
-import { BLOG_FOLDER, getAllPosts, Post } from "../lib/api";
+import { remark } from "remark";
+import remarkHtml from "remark-html";
+import { getAllContent, getContentSource } from "./content";
 
 const BASE_URL = "https://matyasfodor.com";
 
-export const getRss = async (
-  blogPosts: Post[]
-): Promise<{
+export async function getFeeds(): Promise<{
   rss: string;
   atom: string;
   json: string;
-}> => {
+}> {
+  const blogPosts = await getAllContent("blog", { includeHidden: false });
   const feed = new Feed({
     title: "Matyas Fodor - Yet another JS blog",
-    description:
-      "This is my personal feed about my endeavours in the word of web development",
+    description: "This is my personal feed about my endeavours in the world of web development",
     id: BASE_URL,
     link: BASE_URL,
-    language: "en", // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
-    // image: "http://example.com/image.png",
-    // favicon: "http://example.com/favicon.ico",
+    language: "en",
     copyright: "All rights reserved 2021, Matyas Fodor",
-    updated: new Date(2013, 6, 14), // optional, default = today
-    // generator: "awesome", // optional, default = 'Feed for Node.js'
+    updated: blogPosts[0] ? new Date(blogPosts[0].date) : new Date(),
     feedLinks: {
-      json: `${BASE_URL}/json`,
-      atom: `${BASE_URL}/atom`,
+      json: `${BASE_URL}/blog/feed.json`,
+      atom: `${BASE_URL}/blog/atom.xml`,
     },
     author: {
       name: "Matyas Fodor",
-      // email: "johndoe@example.com",
-      link: "@MTY_FDR",
+      link: "https://twitter.com/MTY_FDR",
     },
   });
 
-  for (let post of blogPosts) {
-    // @ts-ignore
-    const { default: mdxSource } = evaluateSync(post.content, {
-      ...runtime,
-      remarkPlugins: [],
-      rehypePlugins: [],
-      development: false
-    });
+  for (const post of blogPosts) {
+    const source = await getContentSource("blog", post.slug);
+    if (!source) continue;
 
-    const content = renderToString(mdxSource({}));
-
+    const content = String(
+      await remark().use(remarkHtml, { sanitize: false }).process(source),
+    );
     const url = `${BASE_URL}/blog/${post.slug}`;
     feed.addItem({
       title: post.title,
@@ -56,14 +43,8 @@ export const getRss = async (
       link: url,
       description: post.excerpt,
       content,
-      author: [
-        {
-          name: "Matyas Fodor",
-          link: "@MTY_FDR",
-        },
-      ],
+      author: [{ name: post.author.name }],
       date: new Date(post.date),
-      // image: post.image,
     });
   }
 
@@ -72,21 +53,4 @@ export const getRss = async (
     atom: feed.atom1(),
     json: feed.json1(),
   };
-};
-
-export const generateRss = async () => {
-  const { rss, atom, json } = await getRss(
-    getAllPosts({
-      folder: BLOG_FOLDER,
-      fields: ["title", "date", "slug", "author", "content"],
-      includeHidden: false,
-    })
-  );
-
-  if (!fs.existsSync("public/blog")) {
-    fs.mkdirSync("public/blog");
-  }
-  fs.writeFileSync("public/blog/rss.xml", rss);
-  fs.writeFileSync("public/blog/atom.xml", atom);
-  fs.writeFileSync("public/blog/feed.json", json);
-};
+}

@@ -1,3 +1,5 @@
+"use client";
+
 import type React from "react";
 import styles from "./Layout.module.scss";
 import SocialLinks from "./SocialLinks";

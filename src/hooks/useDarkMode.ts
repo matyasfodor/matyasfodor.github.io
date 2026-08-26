@@ -6,9 +6,10 @@ const LIGHT_CLASS = "light-mode";
 const DARK_MODE_QUERY = "(prefers-color-scheme: dark)";
 
 function applyDarkMode(enabled: boolean) {
-  document.body.classList.toggle(DARK_CLASS, enabled);
-  document.body.classList.toggle(LIGHT_CLASS, !enabled);
-  document.documentElement.style.colorScheme = enabled ? "dark" : "light";
+  const root = document.documentElement;
+  root.classList.toggle(DARK_CLASS, enabled);
+  root.classList.toggle(LIGHT_CLASS, !enabled);
+  root.style.colorScheme = enabled ? "dark" : "light";
 }
 
 function readStoredPreference(): boolean | null {
