@@ -2,6 +2,7 @@
   "name": "matyasfodor.github.io",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.34.5",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-brands-svg-icons": "^7.1.0",
@@ -10,10 +11,6 @@
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "@next/mdx": "16.3.3",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
-    "eslint": "^9.39.1",
     "feed": "^5.1.0",
     "next": "^16.3.3",
     "react": "^19.2.1",
@@ -25,24 +22,17 @@
     "remark": "^15.0.1",
     "remark-html": "^16.0.1",
     "source-map-explorer": "^2.5.3",
-    "web-vitals": "^5.1.0",
     "zod": "^4.4.3"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "check:unused": "knip",
     "dev": "next dev",
     "dev:local": "sh scripts/dev-local.sh",
     "build": "next build",
     "redis:cli": "docker compose exec redis redis-cli",
     "redis:down": "docker compose down",
-    "start": "next start",
-    "xtest (not sure how to re-enable tests with next.js)": "react-scripts test"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "start": "next start"
   },
   "browserslist": {
     "production": [
@@ -57,11 +47,11 @@
     ]
   },
   "devDependencies": {
-    "@types/babel__core": "^7.20.5",
     "@types/mdx": "^2.0.14",
     "@types/node": "24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "knip": "^6.32.2",
     "sass": "^1.94.2",
     "typescript": "^5.9.3"
   }

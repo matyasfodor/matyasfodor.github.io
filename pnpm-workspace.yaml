@@ -1,6 +1,9 @@
 # Next.js 16.3.3 is the official August 2026 critical security release.
 # Keep the minimum-release-age policy enabled for every other dependency while
 # allowing this exact, intentionally selected patch and its platform binaries.
+packages:
+  - '.'
+
 minimumReleaseAgeExclude:
   - '@next/env@16.3.3'
   - '@next/mdx@16.3.3'

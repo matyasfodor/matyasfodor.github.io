@@ -9,7 +9,7 @@ import type { SidebarContentListItem } from "../commonTypes";
 import { PropsWithChildren } from "react";
 import { useDarkMode } from "../hooks/useDarkMode";
 
-export type LayoutProps = {
+type LayoutProps = {
   posts: SidebarContentListItem[];
   blogPosts: SidebarContentListItem[];
 };
